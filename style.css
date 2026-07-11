@@ -1,0 +1,110 @@
+/* style.css */
+
+/* Smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom link hover effect for your navigation */
+.nav-link-hover {
+  position: relative;
+}
+
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-link-hover:hover::after {
+  width: 100%;
+}
+
+/* The hover effect for your article cards */
+.card-hover-effect {
+  transition: background-color 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  background-color: var(--surface-variant, #e1e2e4);
+}
+
+/* Animation for the theme toggle button */
+.theme-icon-spin {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#themeToggle:hover .theme-icon-spin,
+#themeToggleMobile:hover .theme-icon-spin {
+  transform: rotate(90deg);
+}
+/* =========================================
+   style.css - The Design Backend
+   ========================================= */
+
+/* --- 1. Base Rules --- */
+/* The @layer directive tells Tailwind to process these alongside its own base styles */
+@layer base {
+  body {
+    /* Pulls directly from your tailwind.config script */
+    background-color: theme('colors.background');
+    color: theme('colors.on-background');
+    scroll-behavior: smooth;
+  }
+
+  .dark body {
+    background-color: theme('colors.surface-container-lowest');
+    color: theme('colors.on-surface');
+  }
+}
+
+/* --- 2. Custom Components & Animations --- */
+@layer components {
+  /* Smooth rotation for your light/dark mode icon */
+  #theme-toggle .material-symbols-outlined {
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #theme-toggle:hover .material-symbols-outlined {
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  /* Animated underline effect for header navigation links */
+  header nav a {
+    position: relative;
+  }
+
+  header nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1.5px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+
+  header nav a:hover::after {
+    width: 100%;
+  }
+
+  /* Subtle zoom and dim effect for the Triptych Gallery images */
+  figure {
+    overflow: hidden; /* Keeps the zoom contained within the border radius */
+  }
+
+  figure img {
+    transition: transform 0.6s ease, filter 0.4s ease;
+  }
+
+  figure:hover img {
+    transform: scale(1.03);
+    filter: brightness(0.85);
+  }
+}
